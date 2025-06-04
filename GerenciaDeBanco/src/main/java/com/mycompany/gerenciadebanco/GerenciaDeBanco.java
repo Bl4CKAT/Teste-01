@@ -75,14 +75,30 @@ public class GerenciaDeBanco{
                     break;
                 case 2:
                     System.out.println("informe o valor a ser depositado:");
-                    double valorDeposito = scanner.nextDouble();
-                    cliente.depositar(valorDeposito);
+                    if (scanner.hasNextDouble()) {
+                        double valorDeposito = scanner.nextDouble();
+                        cliente.depositar(valorDeposito);
+                    
+                    } else {
+                        System.out.println("Caractere inválido! Por favor insira apenas números.");
+                        scanner.next();
+                        
+                    }
                     break;
+                    
                 case 3:
                     System.out.println("Informe o valor a ser sacado:");
+                    if (scanner.hasNextDouble()){
                     double valorSaque = scanner.nextDouble();
                     cliente.sacar(valorSaque);
+                    
+                    } else {
+                        System.out.println("Caractere inválido! Por favor, insira apenas números.");
+                        scanner.next();
+                        
+                    }
                     break;
+                    
                 case 4:
                     continuar = false;
                     System.out.println("Encerrando a aplicacao, ate breve");
