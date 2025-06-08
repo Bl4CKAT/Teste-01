@@ -14,12 +14,14 @@ class  Cliente{
     private String nome;
     private String sobrenome;
     private String cpf;
+    private String extrato;
     private double saldo;
     
     public Cliente (String nome, String sobrenome,String cpf){
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.cpf = cpf;
+        this.extrato = "";
         this.saldo = 0.0;
     }
     
@@ -31,7 +33,8 @@ class  Cliente{
     public void depositar(double valor) {
         if (valor > 0) {
             saldo += valor;
-            System.out.println("Deposito de R$ " + valor + " realizado com sucesso.");
+            extrato += "Depósito de R$" + valor + " -  em --/--/2025, às 00:00h\n";
+            System.out.println("Deposito de R$ " + valor + " realizado com sucesso.");       
         } else {
             System.out.println("Valor de deposito invalido.");
         }
@@ -40,12 +43,18 @@ class  Cliente{
     public void sacar(double valor) {
         if (valor > 0 && valor <= saldo) {
             saldo -= valor;
+            extrato += "Saque de R$" + valor + " - em --/--/2025, às 00:00h\n";
             System.out.println("Saque de R$ " + valor + " realizado com sucesso");
             
         } else {
             System.out.println("Saldo insuficiente ou valor do saldo ivalido");
         }    
     } //Fim do metodo sacar
+    
+    public void consultarExtrato(){
+        System.out.println("====EXTRATO====");
+        System.out.println(extrato);
+    } //Fim do metodo consultarExtrato
 } //Fim da classe cliente
 
 public class GerenciaDeBanco{
@@ -66,13 +75,15 @@ public class GerenciaDeBanco{
             System.out.println("1 - Consultar saldo");
             System.out.println("2 - Fazer deposito");
             System.out.println("3 - Fazer saque");
-            System.out.println("4 - Encerrar aplicacao\n\n");
+            System.out.println("4 - Consultar extrato");
+            System.out.println("5 - Encerrar aplicacao\n\n");
             
             int escolha = scanner.nextInt();
             switch (escolha) {
                 case 1:
                     cliente.consultarSaldo();
                     break;
+                    
                 case 2:
                     System.out.println("informe o valor a ser depositado:");
                     if (scanner.hasNextDouble()) {
@@ -100,11 +111,17 @@ public class GerenciaDeBanco{
                     break;
                     
                 case 4:
+                    cliente.consultarExtrato();
+                    break;
+                    
+                case 5:
                     continuar = false;
                     System.out.println("Encerrando a aplicacao, ate breve");
                     break;
+                    
                 default:
                     System.out.println("Opcao invalida, tente novamente.");
+                    
             }
         }
         scanner.close();
